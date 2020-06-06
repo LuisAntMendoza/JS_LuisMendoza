@@ -1,0 +1,14 @@
+.contenedor {
+    background-color: darkgrey;
+    width: 95%;
+    border: 10px dashed black;
+}
+
+.azul {
+    color: blue;
+    text-decoration: underline;
+}
+
+.rojo {
+    color: red;
+}
