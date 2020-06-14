@@ -1,54 +1,54 @@
 body {
-    margin: 0;
     background-color: #1C253A;
     color: #EFEDF0;
+    margin: 0;
 }
 
 .carta {
-    width: 6%;
-    height: 150px;
     background-color: #428BA0;
+    height: 150px;
     margin: 20px 25px;
     position: relative;
     transform-style: preserve-3d;
     transition: all 0.3s linear;
+    width: 6%;
 }
 
 .alzada {
-    margin-top: 15px;
-    margin-left: 20px;
     box-shadow: -5px 5px 5px #C5445B;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.fichadelante {
+    align-items: center;
+    backface-visibility: hidden;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+}
+
+.fichaatras {
+    align-items: center;
+    backface-visibility: hidden;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: absolute;
+    transform: rotateY(180deg);
+    width: 100%;
 }
 
 .carta:hover {
-    margin-top: 15px;
-    margin-left: 20px;
     box-shadow: 5px 5px 5px #C5445B;
+    margin-left: 20px;
+    margin-top: 15px;
 }
 
 .alzada:hover {
     box-shadow: -5px 5px 5px #C5445B;
-}
-
-.fichadelante {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backface-visibility: hidden;
-}
-
-.fichaatras {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform: rotateY(180deg);
-    backface-visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .fichaatras img {
@@ -60,32 +60,13 @@ body {
 }
 
 #cabecera {
-    width: 100%;
-    height: 50px;
+    align-items: center;
     background-color: red;
     display: flex;
     flex-wrap: wrap;
+    height: 50px;
     justify-content: space-around;
-    align-items: center;
-}
-
-#cabecera button {
-    height: 30px;
-    margin: 0;
-    background-color: #C5445B;
-    color: #EFEDF0;
-    box-shadow: 3px 3px #1C253A;
-    transition: 1s linear;
-    outline: none;
-}
-
-#nuevoJuego:hover {
-    margin-top: 3px;
-    margin-left: 3px;
-}
-
-#cabecera h3 {
-    margin: 0;
+    width: 100%;
 }
 
 #tablero {
@@ -96,10 +77,24 @@ body {
 }
 
 #end {
-    width: 90%;
-    margin: 50px 5%;
     background-color: #C5445B;
-    text-align: center;
-    padding: 270px 0;
     display: none;
+    margin: 50px 5%;
+    padding: 270px 0;
+    text-align: center;
+    width: 90%;
+}
+
+#cabecera button {
+    background-color: #C5445B;
+    box-shadow: 3px 3px #1C253A;
+    color: #EFEDF0;
+    height: 30px;
+    margin: 0;
+    outline: none;
+    transition: 1s linear;
+}
+
+#cabecera h3 {
+    margin: 0;
 }
