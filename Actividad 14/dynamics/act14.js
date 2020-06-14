@@ -16,13 +16,11 @@ function buscarCookie(nombre) {
         arrCookies2.push(arrCookies[i].split("=")[1]);
     }
     let indice = arrCookies2.indexOf(nombre);
-    console.log(arrCookies2)
     if (indice == -1) {
         regreso = null;
     } else {
         regreso = arrCookies2[indice + 1]
     }
-    console.log(regreso)
     return regreso;
 }
 
@@ -197,7 +195,6 @@ function generarFichas() {
                     voltearCarta(carta);
                     let valCartas = validarCartas();
                     if (valCartas == true) {
-                        console.log("Par menos")
                         paresEnc++;
                         document.cookie = "paresEnc=" + paresEnc;
                         paresRest--;
@@ -216,9 +213,7 @@ function generarFichas() {
                             }
                         }
                         document.cookie = "arrTablero=" + arrTablero;
-                        console.log(arrTablero);
                     } else {
-                        console.log("Vida menos");
                         vidas--;
                         document.cookie = "vidas=" + vidas;
                     }
@@ -234,11 +229,9 @@ function generarFichas() {
                         $($($($("#tablero").children()).children()[1]).children()).css("transform", "rotateY(180deg)")
                     }, 1000);
                 }
-                console.log($(carta).data())
             }
         })
         $("#tablero").append(carta);
-
     }
 }
 
@@ -256,7 +249,6 @@ function nuevoJuego() {
     $($("#tablero").children()).removeClass("alzada");
     $($("#tablero").children()).data("Volteada", false);
     $($($($("#tablero").children()).children()[1]).children()).css("transform", "rotateY(180deg)")
-    console.log(arrTablero);
 }
 if (buscarCookie("arrTablero") == null) {
     generarTablero();
@@ -264,7 +256,6 @@ if (buscarCookie("arrTablero") == null) {
     document.cookie = "paresRest=15";
     document.cookie = "paresEnc=0";
     document.cookie = "vidas=10";
-    console.log("nulo")
 }
 $("#nuevoJuego").click((e) => {
     e.preventDefault();
