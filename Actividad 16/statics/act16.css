@@ -1,0 +1,10 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.contenedor {
+    border: 2px solid black;
+    width: 70%;
+}

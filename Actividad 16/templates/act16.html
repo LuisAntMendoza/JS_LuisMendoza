@@ -4,10 +4,27 @@
 <head>
     <meta charset="utf-8">
     <title>Actividad 16</title>
+    <link rel="stylesheet" href="../statics/act16.css">
 </head>
 
 <body>
-
+    <div class="contenedor">
+        <form id="controles">
+            <select id="figura">
+                <option value="r">Rectángulo</option>
+                <option value="c">Círculo</option>
+                <option value="m">Mickey Mouse</option>
+            </select>
+            <p>Color de fondo: </p>
+            <input type="color" id="fondo">
+            <p>Color de borde: </p>
+            <input type="color" id="borde">
+            <input type="submit" value="Dibujar" id="Dibujar">
+        </form>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../dynamics/act16.js" charset="utf-8"></script>
 </body>
 
 </html>
