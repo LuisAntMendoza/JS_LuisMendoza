@@ -1,26 +1,4 @@
-const width = 500;
-const height = 500;
-let canvas = document.getElementById('canvas');
-canvas.width = width;
-canvas.height = height;
-let context = canvas.getContext("2d");
-context.translate(width / 2, height / 2);
-let minutes = 0;
-let seconds = 0;
-let miliseconds = 0;
-let minutesInt = 0;
-let secondsInt = 0;
-let milisecondsInt = 0;
-let reloj = undefined;
-let lapsos = 0;
-context.beginPath();
-context.arc(0, 0, 230, 0, Math.PI * 2);
-context.stroke()
-minutos(0);
-segundos(0);
-milisegundos(0);
-manecillas();
-
+//Crea la forma del reloj y corre las funciones de las manecillas
 function dibujarReloj() {
     context.clearRect(-width / 2, -height / 2, width, height);
     context.beginPath();
@@ -34,6 +12,7 @@ function dibujarReloj() {
     requestAnimationFrame(dibujarReloj);
 }
 
+//Crea las lineas del reloj
 function manecillas() {
     context.beginPath();
     context.strokeStyle = "black";
@@ -49,6 +28,7 @@ function manecillas() {
     }
 }
 
+//Crea la manecilla de los minutos
 function minutos(min) {
     context.beginPath()
     context.moveTo(0, 0);
@@ -60,6 +40,7 @@ function minutos(min) {
     context.rotate(-min * Math.PI / 30);
 }
 
+//Crea la manecilla de los segundos
 function segundos(sec) {
     context.beginPath()
     context.moveTo(0, 0);
@@ -71,6 +52,7 @@ function segundos(sec) {
     context.rotate(-sec * Math.PI / 30);
 }
 
+//Crea la manecilla de los milisegundos
 function milisegundos(mil) {
     context.beginPath()
     context.moveTo(0, 0);
@@ -82,6 +64,32 @@ function milisegundos(mil) {
     context.rotate(-mil * Math.PI / 500);
 }
 
+//Definimos las variables
+const width = 500;
+const height = 500;
+let canvas = document.getElementById('canvas');
+canvas.width = width;
+canvas.height = height;
+let context = canvas.getContext("2d");
+context.translate(width / 2, height / 2);
+let minutes = 0;
+let seconds = 0;
+let miliseconds = 0;
+let minutesInt = 0;
+let secondsInt = 0;
+let milisecondsInt = 0;
+let reloj = undefined;
+let lapsos = 0;
+//Creamos un reloj inicial
+context.beginPath();
+context.arc(0, 0, 230, 0, Math.PI * 2);
+context.stroke()
+minutos(0);
+segundos(0);
+milisegundos(0);
+manecillas();
+
+//Al dar clic en iniciar empezamos a correr el reloj
 $("#iniciar").on("click", (e) => {
     e.preventDefault()
     reloj = setInterval(() => {
@@ -106,10 +114,14 @@ $("#iniciar").on("click", (e) => {
     }, 10);
     requestAnimationFrame(dibujarReloj)
 });
+
+//Al dar clic en pausar paramos el intervalo
 $("#pausar").on("click", (e) => {
     e.preventDefault()
     clearInterval(reloj);
 });
+
+//Al dar clic en parar mostramos el tiempo final y reinciamos el reloj
 $("#parar").on("click", (e) => {
     e.preventDefault()
     clearInterval(reloj)
@@ -121,8 +133,13 @@ $("#parar").on("click", (e) => {
     miliseconds = 0;
     minutes = 0;
     seconds = 0;
+    minutesInt = 0;
+    secondsInt = 0;
+    milisecondsInt = 0;
     lapsos = 0;
 });
+
+//Al dar clic en intervalo mostramos el tiempo de lapso
 $("#intervalo").on("click", (e) => {
     e.preventDefault();
     lapsos++;

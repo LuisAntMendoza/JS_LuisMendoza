@@ -1,3 +1,4 @@
+//Definimos variables y preparamos el campo
 let campo = document.getElementById("campo");
 let largo = 20;
 campo.style.width = (largo * 20) + "px";
@@ -12,24 +13,32 @@ let manzana = null;
 let cuadroManzana = document.createElement("div");
 cuadroManzana.classList.add("fruta");
 let body = document.getElementsByTagName("body")[0];
+
+//Cambia la direccion hacia arriba de la serpiente
 let arriba = document.getElementById("arriba");
 arriba.addEventListener("click", () => {
     if (direccion != 3) {
         direccion = 1;
     }
 });
+
+//Cambia la direccion hacia abajo de la serpiente
 let abajo = document.getElementById("abajo");
 abajo.addEventListener("click", () => {
     if (direccion != 1) {
         direccion = 3;
     }
 });
+
+//Cambia la direccion hacia la izquierda de la serpiente
 let izquierda = document.getElementById("izquierda");
 izquierda.addEventListener("click", () => {
     if (direccion != 2) {
         direccion = 4;
     }
 });
+
+//Cambia la direccion hacia la derecha de la serpiente
 let derecha = document.getElementById("derecha");
 derecha.addEventListener("click", () => {
     if (direccion != 4) {
@@ -38,27 +47,33 @@ derecha.addEventListener("click", () => {
 });
 generar();
 
+//Genera el tablero
 function generar() {
+    //Si hay un tablero lo borra
     if (campo.getElementsByTagName("div").length != 0) {
         for (let i = 0; i < largo * largo; i++) {
             campo.removeChild(campo.childNodes[0])
         }
     }
+    //Añade las celdas
     for (let i = 0; i < largo * largo; i++) {
         let pixel = document.createElement("div");
         pixel.classList.add("pixel");
         campo.appendChild(pixel);
     }
+    //Añade las serpientes
     for (valor of arraySerpiente) {
         let serpiente = document.createElement("div");
         serpiente.classList.add("serpiente");
         campo.replaceChild(serpiente, campo.getElementsByTagName("div")[valor]);
     }
+    //Añade la manzana
     if (manzana != null) {
         campo.replaceChild(cuadroManzana, campo.getElementsByTagName("div")[manzana]);
     }
 }
 
+//Valida si la serpiente come
 function comer() {
     if (manzana === posicion) {
         arraySerpiente.push(posicion);
@@ -67,6 +82,7 @@ function comer() {
     }
 }
 
+//Valida si la serpiente choca con su cola
 function validarEndGame() {
     if (arraySerpiente.length > 1) {
         for (let i = 1; i < arraySerpiente.length; i++) {
@@ -77,6 +93,7 @@ function validarEndGame() {
     }
 }
 
+//Muestra un mensaje de que perdio
 function endGame() {
     clearInterval(jugar);
     let go = document.createElement("div");
@@ -87,6 +104,7 @@ function endGame() {
     body.removeChild(body.getElementsByClassName("botones")[0]);
 }
 
+//Mueve la serpiente en la direccion indicada
 function mover(dir) {
     let cant = undefined;
     if (dir == 1) {
@@ -137,8 +155,10 @@ function mover(dir) {
     return cant;
 }
 
+//Crea el intervalo del juego
 let jugar = setInterval(juego, velocidad);
 
+//Mueve la serpiente, valida que no haya perdido, come, y genera el estatus del tablero
 function juego() {
     mover(direccion);
     validarEndGame();
@@ -146,7 +166,7 @@ function juego() {
     generar();
 }
 
-
+//Genera las manzanas
 setTimeout(() => {
     manzana = Math.floor(Math.random() * (largo * largo));
     let fruta = setInterval(() => {

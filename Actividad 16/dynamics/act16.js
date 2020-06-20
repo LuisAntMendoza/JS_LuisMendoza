@@ -1,6 +1,4 @@
-const width = 500;
-const height = 500;
-
+//Dibuja un rectangulo
 function dibujarRect(context, border, color) {
     context.clearRect(-width / 2, -height / 2, width, height);
     context.beginPath();
@@ -12,6 +10,7 @@ function dibujarRect(context, border, color) {
     context.fill();
 }
 
+//Dibuja un circulo
 function dibujarCirc(context, border, color) {
     context.clearRect(-width / 2, -height / 2, width, height);
     context.beginPath();
@@ -23,6 +22,7 @@ function dibujarCirc(context, border, color) {
     context.fill();
 }
 
+//Dibuja a Mickey Mouse
 function dibujarMickey(context, border, color) {
     context.clearRect(-width / 2, -height / 2, width, height);
     context.arc(0, 0, 150, 0, Math.PI * 2)
@@ -37,12 +37,20 @@ function dibujarMickey(context, border, color) {
     context.fill();
 }
 
+//Tamaño del canvas
+const width = 500;
+const height = 500;
+
+//En la carga del documento
 $(document).ready(() => {
+    //obtenemos el canvas y le damos contexto
     let canvas = document.getElementById('canvas');
     canvas.width = width;
     canvas.height = height;
     let ctx = canvas.getContext("2d");
+    //Lo movemos al centro del canvas
     ctx.translate(width / 2, height / 2);
+    //Al dar clic en dibujar obtiene los colores y dibuja la figura solicitada
     $("#Dibujar").on("click", (e) => {
         e.preventDefault()
         let fondo = $("#fondo").val();

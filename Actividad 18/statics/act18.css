@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.controles {
+    border: 2px solid black;
+    width: 37%;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.grafica {
+    width: 53%;
+}
+
+#canvasGrafica {
+    width: 100%;
+}
+
+#datos {
+    border: 1px solid black;
+    width: 90%;
+    margin: 20px 5%;
+    flex-direction: column;
+    justify-content: center;
+    height: 160px;
+    overflow-y: scroll;
+}
+
+.dato {
+    margin: 10px auto;
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    width: 95%;
+}

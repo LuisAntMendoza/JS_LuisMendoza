@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Actividad 18</title>
+    <link rel="stylesheet" href="../statics/act18.css">
+</head>
+
+<body>
+    <div class="grafica">
+        <canvas id="canvasGrafica"></canvas>
+    </div>
+    <div class="controles">
+        <form>
+            <h3>Creador de Gráficas 5000</h3>
+            <p>Seleccione su tipo de gráfica</p>
+            <select id="tipo" name="tipo">
+                <option value="b">Barras</option>
+                <option value="p">Polar</option>
+                <option value="past">Pastel</option>
+            </select>
+            <p>Titulo de su gráfica:</p>
+            <input type="text" name="nombre" id="nombre"><br><br>
+            <button id="generar">Generar</button>
+            <button id="agregar">Añadir dato</button>
+            <div id="datos">
+            </div>
+        </form>
+        <h4 id="mensaje"></h4>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+    <script src="../libs/chart.min.js" charset="utf-8"></script>
+    <script src="../dynamics/act18.js" charset="utf-8"></script>
+</body>
+
+</html>

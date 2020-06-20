@@ -1,3 +1,4 @@
+//Definimos variables
 let arrTablero = [];
 let cartasMost = 0;
 let valCarta1 = undefined;
@@ -6,6 +7,7 @@ let paresRest = undefined;
 let paresEnc = undefined;
 let vidas = undefined;
 
+//Regresa el valor de una cookie
 function buscarCookie(nombre) {
     let regreso = undefined;
     let cookies = document.cookie;
@@ -24,6 +26,7 @@ function buscarCookie(nombre) {
     return regreso;
 }
 
+//Valida si ambas cartas tienen la misma figura
 function validarCartas() {
     let regreso = undefined;
     if (valCarta1 == valCarta2) {
@@ -34,6 +37,7 @@ function validarCartas() {
     return regreso;
 }
 
+//Voltea una carta
 function voltearCarta(card) {
     $(card).data("Volteada", true);
     $(card).css("transform", "rotateY(180deg)");
@@ -41,6 +45,7 @@ function voltearCarta(card) {
     $($($(card).children()[1]).children()[0]).css("transform", "rotateY(0deg)")
 }
 
+//Actualiza la cabecera
 function cambiarCabecera() {
     $("#nuevoJuego").css("box-shadow", "3px 3px #1C253A");
     $("#nuevoJuego").css("margin", "0");
@@ -49,13 +54,16 @@ function cambiarCabecera() {
     $("#vidas").text(`Vidas restantes: ${vidas}`);
 }
 
+//Crea una carta
 function crearFichas(card) {
     card.addClass("carta");
     card.data("Volteada", false);
     card.html('<div class="fichadelante"><img src="../statics/media/img/chrome.svg"></div><div class="fichaatras"></div>');
 }
 
+//Fin del juego
 function endGame() {
+    //Si ganas muestra el puntaje y un mensaje de felicitacion
     if (paresRest == 0) {
         let score = $("<h3>");
         score.text("Su puntuación es: " + (parseInt(vidas) * 7) + (parseInt(paresEnc) * 5));
@@ -66,6 +74,7 @@ function endGame() {
             $("#end").append(score);
             borrarCookies();
         }, 1000)
+        //si pierdes muestra el puntaje y un mensaje
     } else if (vidas == 0) {
         let score = $("<h3>");
         score.text("Su puntuación es: " + (vidas * 7) + (paresEnc * 5));
@@ -79,6 +88,7 @@ function endGame() {
     }
 }
 
+//Borra las cookies generadas
 function borrarCookies() {
     let time = new Date();
     time.setTime(time.getTime() - 1)
@@ -88,6 +98,7 @@ function borrarCookies() {
     document.cookie = "paresRest=0;expires=" + time.toGMTString();
 }
 
+//Genera un tablero nuevo
 function generarTablero() {
     for (let i = 0; i < 30; i++) {
         arrTablero[i] = undefined;
@@ -107,6 +118,7 @@ function generarTablero() {
     }
 }
 
+//le asigna una imagen segun el valor de la carta, o si ya fue encontrada la hace invisible
 function mostrarTablero() {
     for (let i = 0; i < 30; i++) {
         if (arrTablero[i] != "") {
@@ -179,18 +191,23 @@ function mostrarTablero() {
     }
 }
 
-
+//crea las fichas del tablero
 function generarFichas() {
     for (let i = 0; i < 30; i++) {
+        //Creamos la carta
         let carta = $("<div>");
         crearFichas(carta);
+        //Al dar clic en la carta
         carta.click(() => {
+            //Valida que haya carta, no voltee una 3ra carta y que no este volteada
             if ($(carta).data("noCarta") != undefined && cartasMost < 2 && $(carta).data("Volteada") == false) {
                 cartasMost++;
+                //si es la primer carta solo la voltea
                 if (cartasMost == 1) {
                     valCarta1 = $(carta).data("noCarta");
                     voltearCarta(carta);
                 } else {
+                    //si es la segunda carta valida que sean iguales o no y hace los calculos en las variables
                     valCarta2 = $(carta).data("noCarta");
                     voltearCarta(carta);
                     let valCartas = validarCartas();
@@ -199,6 +216,7 @@ function generarFichas() {
                         document.cookie = "paresEnc=" + paresEnc;
                         paresRest--;
                         document.cookie = "paresRest=" + paresRest;
+                        //Elimina ambas cartas del tablero
                         $($("#tablero").children()).each((ind, elem) => {
                             if ($(elem).data("noCarta") == valCarta1) {
                                 $(elem).removeData("noCarta");
@@ -207,6 +225,7 @@ function generarFichas() {
                                 }, 1000);
                             }
                         })
+                        //Los elimina del arreglo del tablero
                         for (let i = 0; i < 30; i++) {
                             if (arrTablero[i] == valCarta1) {
                                 arrTablero[i] = undefined;
@@ -217,8 +236,10 @@ function generarFichas() {
                         vidas--;
                         document.cookie = "vidas=" + vidas;
                     }
+                    //Actualiza la cabecera y verifica que si es fin del juego
                     cambiarCabecera();
                     endGame();
+                    //Regresa las cartas a la normalidad
                     setTimeout(() => {
                         cartasMost = 0;
                         valCarta1 = undefined;
@@ -231,10 +252,12 @@ function generarFichas() {
                 }
             }
         })
+        //Agregamos la carta al tablero
         $("#tablero").append(carta);
     }
 }
 
+//En caso de recargar la pagina carga los valores de las variables
 function nuevoJuego() {
     $("#end").css("display", "none");
     arrTablero = buscarCookie("arrTablero");
@@ -250,6 +273,8 @@ function nuevoJuego() {
     $($("#tablero").children()).data("Volteada", false);
     $($($($("#tablero").children()).children()[1]).children()).css("transform", "rotateY(180deg)")
 }
+
+//Si no hay cookies generamos unas
 if (buscarCookie("arrTablero") == null) {
     generarTablero();
     document.cookie = "arrTablero=" + arrTablero;
@@ -257,6 +282,8 @@ if (buscarCookie("arrTablero") == null) {
     document.cookie = "paresEnc=0";
     document.cookie = "vidas=10";
 }
+
+//Al dar clic en nuevo juego reinicia todo y crea un nuevo tablero
 $("#nuevoJuego").click((e) => {
     e.preventDefault();
     $("#nuevoJuego").css("box-shadow", "0px 0px");
@@ -277,6 +304,8 @@ $("#nuevoJuego").click((e) => {
     }, 1000)
 
 })
+
+//Genera todo
 nuevoJuego();
 generarFichas();
 mostrarTablero();

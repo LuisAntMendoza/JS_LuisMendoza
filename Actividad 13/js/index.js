@@ -1,11 +1,14 @@
+//Obtiene el nombre
 function getName() {
     return "name=" + document.getElementById("clave").value;
 }
 
+//Obtiene el tipo
 function getTipo() {
     return "tipo=" + document.getElementById("tipos-productos").value;
 }
 
+//Obtiene de la base los productos buscados
 function getProducts() {
     fetch(`dynamics/getProducts.php?${getName()}&${getTipo()}`, {
         method: 'GET'
@@ -23,6 +26,7 @@ function getProducts() {
     })
 }
 
+//Obtiene los tipos que existen en la base
 function getTipos() {
     fetch("dynamics/getTipos.php").then((response) => {
         return response.json();
@@ -37,6 +41,7 @@ function getTipos() {
     })
 }
 
+//Obtiene los productos de la base
 function getNames() {
     fetch("dynamics/getNames.php").then((response) => {
         return response.json();
@@ -51,6 +56,7 @@ function getNames() {
     })
 }
 
+//Actualiza los datos de la base
 function updateProduct() {
     let data = new FormData(document.getElementById('form-editar'));
     fetch("dynamics/update.php", {
@@ -65,13 +71,18 @@ function updateProduct() {
         document.getElementById('form-editar').reset();
     })
 }
+
+//Corremos las funciones
 getTipos();
 getNames();
+
+//Busca los productos en la base al dar clic
 document.getElementById('myForm').addEventListener('submit', (e) => {
     e.preventDefault();
     getProducts();
 })
 
+//Actualiza un producto al dar clic
 document.getElementById('form-editar').addEventListener("submit", (e) => {
     e.preventDefault();
     updateProduct();
